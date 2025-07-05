@@ -1,23 +1,23 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-
-// Import authentication based on environment
-let setupAuth: any, isAuthenticated: any;
-
-if (process.env.NODE_ENV === 'development' && process.env.USE_LOCAL_AUTH === 'true') {
-  const localAuth = require('./localAuth');
-  setupAuth = localAuth.setupLocalAuth;
-  isAuthenticated = localAuth.isAuthenticated;
-} else {
-  const replitAuth = require('./replitAuth');
-  setupAuth = replitAuth.setupAuth;
-  isAuthenticated = replitAuth.isAuthenticated;
-}
 import { insertProductSchema, insertOrderSchema } from "@shared/schema";
 import { z } from "zod";
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Dynamic auth module loading based on environment
+  let setupAuth: any, isAuthenticated: any;
+
+  if (process.env.NODE_ENV === 'development' && process.env.USE_LOCAL_AUTH === 'true') {
+    const localAuth = await import('./localAuth.js'); // ✅ add .js for ESM
+    setupAuth = localAuth.setupLocalAuth;
+    isAuthenticated = localAuth.isAuthenticated;
+  } else {
+    const replitAuth = await import('./replitAuth.js'); // ✅ add .js for ESM
+    setupAuth = replitAuth.setupAuth;
+    isAuthenticated = replitAuth.isAuthenticated;
+  }
+
   // Auth middleware
   await setupAuth(app);
 
@@ -37,7 +37,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get('/api/products', async (req, res) => {
     try {
       const { category, sizes, search, minPrice, maxPrice } = req.query;
-      
+
       const filters: any = {};
       if (category) filters.category = category as string;
       if (search) filters.search = search as string;
@@ -61,7 +61,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const id = parseInt(req.params.id);
       const product = await storage.getProduct(id);
-      
+
       if (!product) {
         return res.status(404).json({ message: "Product not found" });
       }
@@ -78,7 +78,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const userId = req.user.claims.sub;
       const user = await storage.getUser(userId);
-      
+
       if (user?.role !== 'admin') {
         return res.status(403).json({ message: "Admin access required" });
       }
@@ -96,7 +96,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const userId = req.user.claims.sub;
       const user = await storage.getUser(userId);
-      
+
       if (user?.role !== 'admin') {
         return res.status(403).json({ message: "Admin access required" });
       }
@@ -104,7 +104,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const id = parseInt(req.params.id);
       const updates = req.body;
       const product = await storage.updateProduct(id, updates);
-      
+
       if (!product) {
         return res.status(404).json({ message: "Product not found" });
       }
@@ -120,14 +120,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const userId = req.user.claims.sub;
       const user = await storage.getUser(userId);
-      
+
       if (user?.role !== 'admin') {
         return res.status(403).json({ message: "Admin access required" });
       }
 
       const id = parseInt(req.params.id);
       const success = await storage.deleteProduct(id);
-      
+
       if (!success) {
         return res.status(404).json({ message: "Product not found" });
       }
@@ -176,7 +176,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const { quantity } = req.body;
 
       const cartItem = await storage.updateCartItem(id, quantity);
-      
+
       if (!cartItem) {
         return res.status(404).json({ message: "Cart item not found" });
       }
@@ -192,7 +192,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const id = parseInt(req.params.id);
       const success = await storage.removeFromCart(id);
-      
+
       if (!success) {
         return res.status(404).json({ message: "Cart item not found" });
       }
@@ -221,7 +221,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const userId = req.user.claims.sub;
       const { items, shippingAddress } = req.body;
 
-      // Calculate total
       const total = items.reduce((sum: number, item: any) => sum + (item.price * item.quantity), 0);
 
       const order = await storage.createOrder(
@@ -233,9 +232,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         items
       );
 
-      // Clear cart after successful order
       await storage.clearCart(userId);
-
       res.json(order);
     } catch (error) {
       console.error("Error creating order:", error);
@@ -247,8 +244,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const userId = req.user.claims.sub;
       const user = await storage.getUser(userId);
-      
-      // Admin can see all orders, customers see only their own
+
       const orders = await storage.getOrders(user?.role === 'admin' ? undefined : userId);
       res.json(orders);
     } catch (error) {
@@ -262,14 +258,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const id = parseInt(req.params.id);
       const userId = req.user.claims.sub;
       const user = await storage.getUser(userId);
-      
+
       const order = await storage.getOrder(id);
-      
+
       if (!order) {
         return res.status(404).json({ message: "Order not found" });
       }
 
-      // Check if user can access this order
       if (user?.role !== 'admin' && order.userId !== userId) {
         return res.status(403).json({ message: "Access denied" });
       }
@@ -285,7 +280,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const userId = req.user.claims.sub;
       const user = await storage.getUser(userId);
-      
+
       if (user?.role !== 'admin') {
         return res.status(403).json({ message: "Admin access required" });
       }
@@ -294,7 +289,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const { status } = req.body;
 
       const order = await storage.updateOrderStatus(id, status);
-      
+
       if (!order) {
         return res.status(404).json({ message: "Order not found" });
       }
