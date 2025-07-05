@@ -1,7 +1,19 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { setupAuth, isAuthenticated } from "./replitAuth";
+
+// Import authentication based on environment
+let setupAuth: any, isAuthenticated: any;
+
+if (process.env.NODE_ENV === 'development' && process.env.USE_LOCAL_AUTH === 'true') {
+  const localAuth = require('./localAuth');
+  setupAuth = localAuth.setupLocalAuth;
+  isAuthenticated = localAuth.isAuthenticated;
+} else {
+  const replitAuth = require('./replitAuth');
+  setupAuth = replitAuth.setupAuth;
+  isAuthenticated = replitAuth.isAuthenticated;
+}
 import { insertProductSchema, insertOrderSchema } from "@shared/schema";
 import { z } from "zod";
 
