@@ -80,17 +80,21 @@ export class DatabaseStorage implements IStorage {
     priceRange?: { min: number; max: number };
     search?: string;
   }): Promise<Product[]> {
-    let query = db.select().from(products).where(eq(products.isActive, true));
+    const conditions = [eq(products.isActive, true)];
 
     if (filters?.category) {
-      query = query.where(eq(products.category, filters.category));
+      conditions.push(eq(products.category, filters.category));
     }
 
     if (filters?.search) {
-      query = query.where(ilike(products.name, `%${filters.search}%`));
+      conditions.push(ilike(products.name, `%${filters.search}%`));
     }
 
-    return await query.orderBy(desc(products.createdAt));
+    return await db
+      .select()
+      .from(products)
+      .where(and(...conditions))
+      .orderBy(desc(products.createdAt));
   }
 
   async getProduct(id: number): Promise<Product | undefined> {

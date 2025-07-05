@@ -137,7 +137,9 @@ export const cartItemsRelations = relations(cartItems, ({ one }) => ({
 
 // Schema definitions
 export const insertUserSchema = createInsertSchema(users);
-export const insertProductSchema = createInsertSchema(products);
+export const insertProductSchema = createInsertSchema(products).extend({
+  price: z.union([z.string(), z.number()]).transform((val) => val.toString()),
+});
 export const insertOrderSchema = createInsertSchema(orders);
 export const insertOrderItemSchema = createInsertSchema(orderItems);
 export const insertCartItemSchema = createInsertSchema(cartItems);
