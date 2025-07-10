@@ -49,7 +49,7 @@ export default function FeaturedCategories() {
             <div 
               key={category.name} 
               className="group cursor-pointer"
-              style={{ animationDelay: `${index * 0.1}s` }}
+              style={{ animationDelay: `₦{index * 0.1}s` }}
             >
               <div className="relative overflow-hidden rounded-2xl bg-white shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
                 <div className="relative h-80 overflow-hidden">

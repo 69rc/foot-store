@@ -1,23 +1,22 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
-import { storage } from "./storage";
+import { storage } from "./storage.js";
 import { insertProductSchema, insertOrderSchema } from "@shared/schema";
 import { z } from "zod";
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // Dynamic auth module loading based on environment
+  // Import authentication based on environment
   let setupAuth: any, isAuthenticated: any;
 
   if (process.env.NODE_ENV === 'development' && process.env.USE_LOCAL_AUTH === 'true') {
-    const localAuth = await import('./localAuth.js'); // ✅ add .js for ESM
-    setupAuth = localAuth.setupLocalAuth;
-    isAuthenticated = localAuth.isAuthenticated;
+    const { setupLocalAuth, isAuthenticated: localIsAuth } = await import('./localAuth.js');
+    setupAuth = setupLocalAuth;
+    isAuthenticated = localIsAuth;
   } else {
-    const replitAuth = await import('./replitAuth.js'); // ✅ add .js for ESM
-    setupAuth = replitAuth.setupAuth;
-    isAuthenticated = replitAuth.isAuthenticated;
+    const { setupAuth: replitSetupAuth, isAuthenticated: replitIsAuth } = await import('./replitAuth.js');
+    setupAuth = replitSetupAuth;
+    isAuthenticated = replitIsAuth;
   }
-
   // Auth middleware
   await setupAuth(app);
 

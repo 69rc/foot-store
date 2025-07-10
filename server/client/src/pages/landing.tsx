@@ -75,7 +75,7 @@ export default function Landing() {
                 <Truck className="h-12 w-12 text-accent mx-auto mb-4" />
                 <h3 className="text-xl font-semibold mb-2">Fast Delivery</h3>
                 <p className="text-muted-foreground">
-                  Free shipping on orders over $50, with express delivery options
+                  Free shipping on orders over ₦50, with express delivery options
                 </p>
               </CardContent>
             </Card>

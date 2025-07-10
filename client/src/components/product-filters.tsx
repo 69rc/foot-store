@@ -97,11 +97,11 @@ export default function ProductFilters({ filters, onFiltersChange }: ProductFilt
             {sizes.map((size) => (
               <div key={size} className="flex items-center space-x-2">
                 <Checkbox
-                  id={`size-${size}`}
+                  id={`size-₦{size}`}
                   checked={filters.sizes.includes(size)}
                   onCheckedChange={(checked) => handleSizeChange(size, checked as boolean)}
                 />
-                <Label htmlFor={`size-${size}`} className="text-sm cursor-pointer">
+                <Label htmlFor={`size-₦{size}`} className="text-sm cursor-pointer">
                   {size}
                 </Label>
               </div>

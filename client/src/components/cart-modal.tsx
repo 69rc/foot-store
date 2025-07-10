@@ -17,7 +17,7 @@ export default function CartModal({ open, onOpenChange, cartItems }: CartModalPr
 
   const updateQuantityMutation = useMutation({
     mutationFn: async ({ id, quantity }: { id: number; quantity: number }) => {
-      await apiRequest('PUT', `/api/cart/${id}`, { quantity });
+      await apiRequest('PUT', `/api/cart/₦{id}`, { quantity });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/cart'] });
@@ -44,7 +44,7 @@ export default function CartModal({ open, onOpenChange, cartItems }: CartModalPr
 
   const removeItemMutation = useMutation({
     mutationFn: async (id: number) => {
-      await apiRequest('DELETE', `/api/cart/${id}`);
+      await apiRequest('DELETE', `/api/cart/₦{id}`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/cart'] });
@@ -93,7 +93,7 @@ export default function CartModal({ open, onOpenChange, cartItems }: CartModalPr
                   <div className="flex-1">
                     <h3 className="font-medium">{item.product.name}</h3>
                     <p className="text-sm text-gray-600">Size: {item.size}</p>
-                    <p className="text-sm font-semibold text-primary">${item.product.price}</p>
+                    <p className="text-sm font-semibold text-primary">₦{item.product.price}</p>
                   </div>
                   <div className="flex items-center space-x-2">
                     <Button
@@ -136,7 +136,7 @@ export default function CartModal({ open, onOpenChange, cartItems }: CartModalPr
           <div className="border-t pt-6 flex-shrink-0">
             <div className="flex justify-between items-center mb-4">
               <span className="text-lg font-semibold">Total:</span>
-              <span className="text-2xl font-bold text-primary">${total.toFixed(2)}</span>
+              <span className="text-2xl font-bold text-primary">₦{total.toFixed(2)}</span>
             </div>
             <div className="space-y-3">
               <Button 

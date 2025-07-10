@@ -88,7 +88,7 @@ export default function ProductModal({
                 <img 
                   key={i}
                   src={product.imageUrl || "https://images.unsplash.com/photo-1549298916-b41d501d3772?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&h=150"} 
-                  alt={`${product.name} view ${i + 1}`}
+                  alt={`₦{product.name} view ₦{i + 1}`}
                   className="w-full h-20 object-cover rounded cursor-pointer hover:opacity-80"
                 />
               ))}
@@ -98,12 +98,12 @@ export default function ProductModal({
           <div>
             <h1 className="text-3xl font-bold mb-4">{product.name}</h1>
             <div className="flex items-center space-x-4 mb-4">
-              <span className="text-3xl font-bold text-primary">${product.price}</span>
+              <span className="text-3xl font-bold text-primary">₦{product.price}</span>
               <div className="flex items-center space-x-1">
                 {Array.from({ length: 5 }).map((_, i) => (
                   <Star 
                     key={i} 
-                    className={`h-4 w-4 ${i < 4 ? 'text-yellow-400 fill-current' : 'text-gray-300'}`} 
+                    className={`h-4 w-4 ₦{i < 4 ? 'text-yellow-400 fill-current' : 'text-gray-300'}`} 
                   />
                 ))}
                 <span className="text-sm text-gray-600 ml-2">4.8 (124 reviews)</span>

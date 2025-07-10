@@ -35,7 +35,7 @@ if (!fs.existsSync(envPath)) {
 DATABASE_URL=postgresql://postgres:password@localhost:5432/Footwears
 
 # Session Security (generate a secure random string)
-SESSION_SECRET=${generateRandomString(64)}
+SESSION_SECRET=₦{generateRandomString(64)}
 
 # Local Development Auth
 NODE_ENV=development

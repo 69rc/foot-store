@@ -1,0 +1,82 @@
+{
+  "timestamp": "2025-01-10T11:25:00.000Z",
+  "database_name": "solestyle_db",
+  "description": "SoleStyle e-commerce database export with user, product, order, and cart tables",
+  "tables": {
+    "users": [
+      {
+        "id": "sample-user-id",
+        "email": "admin@example.com",
+        "firstName": "Admin",
+        "lastName": "User",
+        "role": "admin",
+        "createdAt": "2025-01-10T11:00:00.000Z"
+      }
+    ],
+    "products": [
+      {
+        "id": 1,
+        "name": "Classic Oxford Brown",
+        "description": "Elegant brown leather oxford shoes perfect for formal occasions and business meetings.",
+        "price": "129.99",
+        "category": "men",
+        "sizes": ["7", "8", "9", "10", "11", "12"],
+        "stock": 15,
+        "imageUrl": "",
+        "isActive": true,
+        "createdAt": "2025-01-10T11:00:00.000Z"
+      },
+      {
+        "id": 2,
+        "name": "Elegant Black Heels",
+        "description": "Sophisticated black heels that combine style and comfort for the modern woman.",
+        "price": "89.99",
+        "category": "women",
+        "sizes": ["5", "6", "7", "8", "9", "10"],
+        "stock": 12,
+        "imageUrl": "",
+        "isActive": true,
+        "createdAt": "2025-01-10T11:00:00.000Z"
+      },
+      {
+        "id": 3,
+        "name": "Athletic Running Shoes",
+        "description": "High-performance running shoes designed for serious athletes and fitness enthusiasts.",
+        "price": "159.99",
+        "category": "sports",
+        "sizes": ["6", "7", "8", "9", "10", "11", "12", "13"],
+        "stock": 18,
+        "imageUrl": "",
+        "isActive": true,
+        "createdAt": "2025-01-10T11:00:00.000Z"
+      },
+      {
+        "id": 4,
+        "name": "Kids Rainbow Sneakers",
+        "description": "Colorful and fun sneakers that kids will love, with comfortable padding and durable construction.",
+        "price": "39.99",
+        "category": "kids",
+        "sizes": ["10", "11", "12", "13", "1", "2", "3"],
+        "stock": 20,
+        "imageUrl": "",
+        "isActive": true,
+        "createdAt": "2025-01-10T11:00:00.000Z"
+      }
+    ],
+    "orders": [],
+    "order_items": [],
+    "cart_items": []
+  },
+  "notes": {
+    "schema_version": "1.0",
+    "image_storage": "Base64 encoded images are stored in the imageUrl field with unlimited length",
+    "authentication": "Uses Replit OIDC authentication",
+    "features": [
+      "User authentication with role-based access",
+      "Product management with image upload",
+      "Shopping cart functionality",
+      "Order processing system",
+      "Image compression and optimization"
+    ]
+  }
+}

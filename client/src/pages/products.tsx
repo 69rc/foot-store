@@ -64,7 +64,7 @@ export default function Products() {
             <div className="lg:w-3/4">
               <div className="flex justify-between items-center mb-6">
                 <h2 className="text-2xl font-bold text-gray-900">
-                  {filters.category ? `${filters.category} Shoes` : "All Products"}
+                  {filters.category ? `₦{filters.category} Shoes` : "All Products"}
                 </h2>
                 <Select value={sortBy} onValueChange={setSortBy}>
                   <SelectTrigger className="w-48">

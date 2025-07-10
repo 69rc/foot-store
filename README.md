@@ -1,220 +1,174 @@
 # Footwears - E-commerce Shoe Store
 
-A complete online shoe store built with React, Express.js, PostgreSQL, and Replit Auth.
+A modern e-commerce application for selling shoes online, built with React, Express.js, and PostgreSQL.
 
 ## Features
 
-- 🛍️ Complete e-commerce functionality with shopping cart
-- 👟 Product catalog with categories (Men's, Women's, Kids', Sports)
-- 🔐 User authentication with role-based access (Customer/Admin)
-- 📱 Responsive design with modern UI
-- 🎯 Admin dashboard for product and order management
-- 🛒 Real-time cart updates and order processing
-- 💳 Order history and status tracking
+- **User Authentication**: Secure login with Replit OIDC
+- **Product Management**: Admin interface for managing shoe inventory
+- **Shopping Cart**: Persistent cart functionality
+- **Order Processing**: Complete order management system
+- **Image Upload**: Drag-and-drop image upload with automatic compression
+- **Responsive Design**: Modern UI with Tailwind CSS
 
 ## Tech Stack
 
-- **Frontend**: React 18, TypeScript, Tailwind CSS, Wouter (routing)
-- **Backend**: Express.js, TypeScript
-- **Database**: PostgreSQL with Drizzle ORM
-- **Authentication**: Replit OIDC (OpenID Connect)
-- **UI Components**: Radix UI with shadcn/ui
-- **State Management**: TanStack Query (React Query)
+- **Frontend**: React 18 + TypeScript, Tailwind CSS, shadcn/ui
+- **Backend**: Express.js + TypeScript, Drizzle ORM
+- **Database**: PostgreSQL (Neon serverless)
+- **Authentication**: Replit OIDC with session storage
 
-## Prerequisites
+## Quick Start (Replit)
 
-- Node.js (v18 or higher)
-- PostgreSQL (v13 or higher)
-- npm or yarn
+1. Open this project in Replit
+2. The application will automatically install dependencies
+3. Click "Run" to start the development server
+4. Visit the provided URL to access the application
+5. Use "Login" to authenticate with your Replit account
 
-## Local Setup Instructions
+## Local Development Setup
 
-### 1. Clone the Repository
+### Prerequisites
 
+- Node.js 18+ 
+- PostgreSQL database
+- Git
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd solestyle
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Environment Setup**
+   
+   Create a `.env` file in the root directory:
+   ```env
+   DATABASE_URL=postgresql://username:password@localhost:5432/solestyle
+   SESSION_SECRET=your-session-secret-key-here
+   NODE_ENV=development
+   ```
+
+4. **Database Setup**
+   
+   Create a PostgreSQL database and run migrations:
+   ```bash
+   # Create database
+   createdb solestyle
+   
+   # Push schema to database
+   npm run db:push
+   
+   # Seed with sample data (optional)
+   npm run db:seed
+   ```
+
+5. **Start Development Server**
+   ```bash
+   npm run dev
+   ```
+   
+   The application will be available at `http://localhost:5000`
+
+## Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run start` - Start production server
+- `npm run check` - Run TypeScript type checking
+- `npm run db:push` - Push database schema changes
+- `npm run db:seed` - Seed database with sample data
+- `npm run db:export` - Export database to JSON file
+
+## Database Export/Import
+
+### Export Database
 ```bash
-git clone <your-repo-url>
-cd Footwears
+npm run db:export
 ```
+This creates a timestamped export file in the `exports/` directory.
 
-### 2. Install Dependencies
-
+### Import Sample Data
 ```bash
-npm install
+npm run db:seed
 ```
-
-### 3. Database Setup
-
-#### Option A: Using Local PostgreSQL
-
-1. Install PostgreSQL on your system
-2. Create a new database:
-```bash
-createdb Footwears
-```
-
-3. Get your database connection string:
-```
-postgresql://username:password@localhost:5432/Footwears
-```
-
-#### Option B: Using Neon (Serverless PostgreSQL)
-
-1. Go to [Neon](https://neon.tech) and create a free account
-2. Create a new project
-3. Copy the connection string provided
-
-### 4. Environment Variables
-
-Create a `.env` file in the root directory:
-
-```env
-# Database
-DATABASE_URL=postgresql://username:password@localhost:5432/Footwears
-
-# Session Security
-SESSION_SECRET=your-super-secret-key-here-make-it-long-and-random
-
-# Replit Auth (for local development, you'll need to set up a test app)
-REPL_ID=your-replit-app-id
-REPLIT_DOMAINS=localhost:5000
-ISSUER_URL=https://replit.com/oidc
-
-# PostgreSQL Connection Details (auto-extracted from DATABASE_URL)
-PGHOST=localhost
-PGPORT=5432
-PGUSER=your-username
-PGPASSWORD=your-password
-PGDATABASE=Footwears
-```
-
-### 5. Database Schema Setup
-
-Run the database migrations:
-
-```bash
-npm run db:push
-```
-
-### 6. Seed the Database (Optional)
-
-The application will automatically create sample products when you first run it. You can also manually add products through the admin interface.
-
-### 7. Run the Application
-
-```bash
-npm run dev
-```
-
-The application will be available at `http://localhost:5000`
+This adds sample products to get you started.
 
 ## Project Structure
 
 ```
-Footwears/
 ├── client/                 # React frontend
 │   ├── src/
-│   │   ├── components/     # UI components
-│   │   ├── pages/          # Page components
-│   │   ├── hooks/          # React hooks
-│   │   └── lib/            # Utilities
+│   │   ├── components/     # Reusable UI components
+│   │   ├── pages/          # Application pages
+│   │   ├── hooks/          # Custom React hooks
+│   │   └── lib/            # Utility functions
 ├── server/                 # Express backend
-│   ├── db.ts              # Database connection
-│   ├── storage.ts         # Database operations
 │   ├── routes.ts          # API routes
-│   └── replitAuth.ts      # Authentication
+│   ├── storage.ts         # Database operations
+│   └── index.ts           # Server entry point
 ├── shared/                 # Shared types and schemas
-│   └── schema.ts          # Database schema
-└── README.md
+│   └── schema.ts          # Database schema definitions
+├── scripts/               # Utility scripts
+└── exports/               # Database exports (created automatically)
 ```
 
-## Authentication Setup for Local Development
+## Admin Features
 
-Since this app uses Replit Auth, you have a few options for local development:
+Access the admin panel at `/admin` (requires admin role):
 
-### Option 1: Mock Authentication (Recommended for Local Development)
-
-You can modify the authentication to use a simple mock system for local development. This is the easiest way to test the application locally.
-
-### Option 2: Set up Replit OAuth App
-
-1. Go to your Replit account settings
-2. Create a new OAuth application
-3. Set the callback URL to `http://localhost:5000/api/callback`
-4. Use the provided client ID and secret in your environment variables
-
-### Option 3: Use Alternative Auth Provider
-
-You can modify the authentication to use providers like Auth0, Firebase Auth, or implement a simple local authentication system.
+- Add/edit/delete products
+- Upload product images with automatic compression
+- Manage inventory and stock levels
+- View and manage orders
 
 ## API Endpoints
 
-### Authentication
-- `GET /api/auth/user` - Get current user
-- `GET /api/login` - Login redirect
-- `GET /api/logout` - Logout
-- `GET /api/callback` - OAuth callback
-
 ### Products
-- `GET /api/products` - Get all products with optional filters
-- `GET /api/products/:id` - Get single product
-- `POST /api/products` - Create product (admin only)
+- `GET /api/products` - List all products with filters
+- `POST /api/products` - Create new product (admin only)
 - `PUT /api/products/:id` - Update product (admin only)
 - `DELETE /api/products/:id` - Delete product (admin only)
 
 ### Cart
 - `GET /api/cart` - Get user's cart items
 - `POST /api/cart` - Add item to cart
-- `PUT /api/cart/:id` - Update cart item
+- `PUT /api/cart/:id` - Update cart item quantity
 - `DELETE /api/cart/:id` - Remove item from cart
 
 ### Orders
 - `GET /api/orders` - Get user's orders
 - `POST /api/orders` - Create new order
-- `GET /api/orders/:id` - Get single order
 - `PUT /api/orders/:id` - Update order status (admin only)
 
-## Development Scripts
-
-```bash
-# Start development server
-npm run dev
-
-# Build for production
-npm run build
-
-# Push database schema changes
-npm run db:push
-
-# Generate database migrations
-npm run db:generate
-
-# Run TypeScript type checking
-npm run type-check
-```
-
-## Default Admin User
-
-For testing, you can manually set a user's role to "admin" in the database:
-
-```sql
-UPDATE users SET role = 'admin' WHERE email = 'your-email@example.com';
-```
+### Authentication
+- `GET /api/auth/user` - Get current user
+- `GET /api/login` - Initiate login
+- `GET /api/logout` - Logout user
 
 ## Troubleshooting
 
 ### Database Connection Issues
-- Ensure PostgreSQL is running
-- Check your DATABASE_URL is correct
-- Verify your database exists and is accessible
+1. Verify your `DATABASE_URL` is correct
+2. Ensure PostgreSQL is running
+3. Check database permissions
 
-### Authentication Issues
-- Check your environment variables are set correctly
-- Ensure REPLIT_DOMAINS includes your local domain
-- Verify your OAuth app configuration (if using Replit Auth)
+### Image Upload Issues
+1. Images are automatically compressed to 800x800 max
+2. File size limit is 5MB before compression
+3. Only JPEG, PNG, GIF formats supported
 
-### Port Conflicts
-- The app runs on port 5000 by default
-- If port 5000 is busy, the app will try the next available port
+### Session Issues
+1. Ensure `SESSION_SECRET` is set in environment
+2. Check that cookies are enabled in browser
+3. Verify domain configuration for production
 
 ## Contributing
 

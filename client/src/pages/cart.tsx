@@ -35,7 +35,7 @@ export default function Cart() {
 
   const updateQuantityMutation = useMutation({
     mutationFn: async ({ id, quantity }: { id: number; quantity: number }) => {
-      await apiRequest('PUT', `/api/cart/${id}`, { quantity });
+      await apiRequest('PUT', `/api/cart/₦{id}`, { quantity });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/cart'] });
@@ -62,7 +62,7 @@ export default function Cart() {
 
   const removeItemMutation = useMutation({
     mutationFn: async (id: number) => {
-      await apiRequest('DELETE', `/api/cart/${id}`);
+      await apiRequest('DELETE', `/api/cart/₦{id}`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/cart'] });
@@ -178,7 +178,7 @@ export default function Cart() {
                           <div className="flex-1">
                             <h3 className="font-medium">{item.product.name}</h3>
                             <p className="text-sm text-gray-600">Size: {item.size}</p>
-                            <p className="text-sm font-semibold text-primary">${item.product.price}</p>
+                            <p className="text-sm font-semibold text-primary">₦{item.product.price}</p>
                           </div>
                           <div className="flex items-center space-x-2">
                             <Button
@@ -223,7 +223,7 @@ export default function Cart() {
                     <div className="space-y-4">
                       <div className="flex justify-between items-center">
                         <span>Subtotal</span>
-                        <span>${total.toFixed(2)}</span>
+                        <span>₦{total.toFixed(2)}</span>
                       </div>
                       <div className="flex justify-between items-center">
                         <span>Shipping</span>
@@ -232,7 +232,7 @@ export default function Cart() {
                       <div className="border-t pt-4">
                         <div className="flex justify-between items-center font-semibold text-lg">
                           <span>Total</span>
-                          <span>${total.toFixed(2)}</span>
+                          <span>₦{total.toFixed(2)}</span>
                         </div>
                       </div>
                       <Button 

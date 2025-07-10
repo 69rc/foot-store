@@ -1,5 +1,6 @@
-require('dotenv').config();
-const { Pool } = require('pg');
+import dotenv from 'dotenv';
+import { Pool } from '@neondatabase/serverless';
+dotenv.config();
 
 const sampleProducts = [
   {
@@ -125,7 +126,7 @@ async function seedDatabase() {
     const productCount = parseInt(existingProducts.rows[0].count);
 
     if (productCount > 0) {
-      console.log(`ℹ️  Database already contains ${productCount} products. Skipping seeding.`);
+      console.log(`ℹ️  Database already contains ₦{productCount} products. Skipping seeding.`);
       console.log('💡 To force re-seed, delete all products first: DELETE FROM products;');
       return;
     }
@@ -134,7 +135,7 @@ async function seedDatabase() {
     for (const product of sampleProducts) {
       await pool.query(
         `INSERT INTO products (name, description, price, category, sizes, stock, "imageUrl", "isActive")
-         VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
+         VALUES (₦1, ₦2, ₦3, ₦4, ₦5, ₦6, ₦7, ₦8)`,
         [
           product.name,
           product.description,
@@ -146,10 +147,10 @@ async function seedDatabase() {
           true
         ]
       );
-      console.log(`✅ Added: ${product.name}`);
+      console.log(`✅ Added: ₦{product.name}`);
     }
 
-    console.log(`🎉 Successfully seeded database with ${sampleProducts.length} products!`);
+    console.log(`🎉 Successfully seeded database with ₦{sampleProducts.length} products!`);
 
   } catch (error) {
     console.error('❌ Error seeding database:', error.message);

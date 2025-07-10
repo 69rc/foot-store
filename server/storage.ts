@@ -87,7 +87,7 @@ export class DatabaseStorage implements IStorage {
     }
 
     if (filters?.search) {
-      conditions.push(ilike(products.name, `%${filters.search}%`));
+      conditions.push(ilike(products.name, `%₦{filters.search}%`));
     }
 
     return await db

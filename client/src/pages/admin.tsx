@@ -16,6 +16,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Edit, Trash2, Plus, Package, ShoppingCart, DollarSign, Users } from "lucide-react";
+import ImageUpload from "@/components/image-upload";
 
 export default function Admin() {
   const { toast } = useToast();
@@ -108,7 +109,7 @@ export default function Admin() {
 
   const deleteProductMutation = useMutation({
     mutationFn: async (id: number) => {
-      await apiRequest('DELETE', `/api/products/${id}`);
+      await apiRequest('DELETE', `/api/products/₦{id}`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/products'] });
@@ -139,7 +140,7 @@ export default function Admin() {
 
   const updateOrderStatusMutation = useMutation({
     mutationFn: async ({ id, status }: { id: number; status: string }) => {
-      await apiRequest('PUT', `/api/orders/${id}/status`, { status });
+      await apiRequest('PUT', `/api/orders/₦{id}/status`, { status });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/orders'] });
@@ -263,12 +264,11 @@ export default function Admin() {
                     />
                   </div>
                   <div className="md:col-span-2">
-                    <Label htmlFor="imageUrl">Image URL</Label>
-                    <Input
-                      id="imageUrl"
+                    <Label>Product Image</Label>
+                    <ImageUpload
                       value={newProduct.imageUrl}
-                      onChange={(e) => setNewProduct({ ...newProduct, imageUrl: e.target.value })}
-                      placeholder="https://example.com/image.jpg"
+                      onChange={(value) => setNewProduct({ ...newProduct, imageUrl: value })}
+                      disabled={addProductMutation.isPending}
                     />
                   </div>
                   <div className="md:col-span-2">
@@ -324,7 +324,7 @@ export default function Admin() {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm text-gray-600">Revenue</p>
-                    <p className="text-2xl font-bold text-accent">${totalRevenue.toFixed(2)}</p>
+                    <p className="text-2xl font-bold text-accent">₦{totalRevenue.toFixed(2)}</p>
                   </div>
                   <DollarSign className="h-8 w-8 text-accent" />
                 </div>
@@ -384,7 +384,7 @@ export default function Admin() {
                               </div>
                             </td>
                             <td className="py-4 px-4 capitalize">{product.category}</td>
-                            <td className="py-4 px-4">${product.price}</td>
+                            <td className="py-4 px-4">₦{product.price}</td>
                             <td className="py-4 px-4">{product.stock}</td>
                             <td className="py-4 px-4">
                               <div className="flex space-x-2">
@@ -451,12 +451,12 @@ export default function Admin() {
                           {order.orderItems.map((item: any) => (
                             <div key={item.id} className="flex items-center justify-between text-sm">
                               <span>{item.product.name} (x{item.quantity})</span>
-                              <span>${item.price}</span>
+                              <span>₦{item.price}</span>
                             </div>
                           ))}
                           <div className="flex justify-between font-semibold pt-2 border-t">
                             <span>Total:</span>
-                            <span>${order.total}</span>
+                            <span>₦{order.total}</span>
                           </div>
                         </div>
                       </div>
