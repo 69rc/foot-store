@@ -451,12 +451,12 @@ export default function Admin() {
                           {order.orderItems.map((item: any) => (
                             <div key={item.id} className="flex items-center justify-between text-sm">
                               <span>{item.product.name} (x{item.quantity})</span>
-                              <span>${item.price}</span>
+                              <span>₦{Number(item.price).toLocaleString('en-NG')}</span>
                             </div>
                           ))}
                           <div className="flex justify-between font-semibold pt-2 border-t">
                             <span>Total:</span>
-                            <span>${order.total}</span>
+                            <span>₦{Number(order.total).toLocaleString('en-NG')}</span>
                           </div>
                         </div>
                       </div>

@@ -107,13 +107,13 @@ export default function Orders() {
                             <p className="text-sm text-gray-600">Quantity: {item.quantity}</p>
                           </div>
                           <div className="text-right">
-                            <p className="font-semibold">${item.price}</p>
+                            <p className="font-semibold">₦{Number(item.price).toLocaleString('en-NG')}</p>
                           </div>
                         </div>
                       ))}
                       <div className="flex justify-between items-center pt-4 border-t">
                         <span className="text-lg font-semibold">Total:</span>
-                        <span className="text-xl font-bold text-primary">${order.total}</span>
+                        <span className="text-xl font-bold text-primary">₦{Number(order.total).toLocaleString('en-NG')}</span>
                       </div>
                     </div>
                   </CardContent>
