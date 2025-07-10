@@ -45,10 +45,10 @@ export const products = pgTable("products", {
   description: text("description"),
   price: decimal("price", { precision: 10, scale: 2 }).notNull(),
   category: varchar("category", { enum: ["men", "women", "kids", "sports"] }).notNull(),
-  sizes: jsonb("sizes").₦type<string[]>().default([]),
+  sizes: jsonb("sizes").$type<string[]>().default([]),
   stock: integer("stock").default(0),
   imageUrl: text("image_url"),
-  imageUrls: jsonb("image_urls").₦type<string[]>().default([]),
+  imageUrls: jsonb("image_urls").$type<string[]>().default([]),
   isActive: boolean("is_active").default(true),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
@@ -60,7 +60,7 @@ export const orders = pgTable("orders", {
   userId: varchar("user_id").references(() => users.id).notNull(),
   status: varchar("status", { enum: ["pending", "processing", "shipped", "delivered", "cancelled"] }).default("pending"),
   total: decimal("total", { precision: 10, scale: 2 }).notNull(),
-  shippingAddress: jsonb("shipping_address").₦type<{
+  shippingAddress: jsonb("shipping_address").$type<{
     firstName: string;
     lastName: string;
     address: string;
@@ -145,16 +145,16 @@ export const insertOrderItemSchema = createInsertSchema(orderItems);
 export const insertCartItemSchema = createInsertSchema(cartItems);
 
 // Type exports
-export type UpsertUser = typeof users.₦inferInsert;
-export type User = typeof users.₦inferSelect;
+export type UpsertUser = typeof users.$inferInsert;
+export type User = typeof users.$inferSelect;
 export type InsertProduct = z.infer<typeof insertProductSchema>;
-export type Product = typeof products.₦inferSelect;
+export type Product = typeof products.$inferSelect;
 export type InsertOrder = z.infer<typeof insertOrderSchema>;
-export type Order = typeof orders.₦inferSelect;
+export type Order = typeof orders.$inferSelect;
 export type InsertOrderItem = z.infer<typeof insertOrderItemSchema>;
-export type OrderItem = typeof orderItems.₦inferSelect;
+export type OrderItem = typeof orderItems.$inferSelect;
 export type InsertCartItem = z.infer<typeof insertCartItemSchema>;
-export type CartItem = typeof cartItems.₦inferSelect;
+export type CartItem = typeof cartItems.$inferSelect;
 
 // Extended types for API responses
 export type OrderWithItems = Order & {
