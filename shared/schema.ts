@@ -47,7 +47,7 @@ export const products = pgTable("products", {
   category: varchar("category", { enum: ["men", "women", "kids", "sports"] }).notNull(),
   sizes: jsonb("sizes").$type<string[]>().default([]),
   stock: integer("stock").default(0),
-  imageUrl: varchar("image_url", { length: 500 }),
+  imageUrl: text("image_url"),
   imageUrls: jsonb("image_urls").$type<string[]>().default([]),
   isActive: boolean("is_active").default(true),
   createdAt: timestamp("created_at").defaultNow(),

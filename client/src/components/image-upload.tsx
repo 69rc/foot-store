@@ -21,16 +21,52 @@ export default function ImageUpload({ value, onChange, disabled, className }: Im
       return;
     }
 
+    if (file.size > 5 * 1024 * 1024) { // 5MB limit
+      alert('File size too large. Please choose a file smaller than 5MB.');
+      return;
+    }
+
     setIsUploading(true);
     
     try {
-      // Convert to base64 for storage
+      // Create a canvas to resize and compress the image
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      const img = new Image();
+      
+      img.onload = () => {
+        // Calculate new dimensions (max 800x800)
+        const maxSize = 800;
+        let { width, height } = img;
+        
+        if (width > height) {
+          if (width > maxSize) {
+            height = (height * maxSize) / width;
+            width = maxSize;
+          }
+        } else {
+          if (height > maxSize) {
+            width = (width * maxSize) / height;
+            height = maxSize;
+          }
+        }
+        
+        canvas.width = width;
+        canvas.height = height;
+        
+        // Draw and compress the image
+        ctx?.drawImage(img, 0, 0, width, height);
+        
+        // Convert to base64 with 80% quality
+        const compressedDataURL = canvas.toDataURL('image/jpeg', 0.8);
+        setPreview(compressedDataURL);
+        onChange(compressedDataURL);
+        setIsUploading(false);
+      };
+      
       const reader = new FileReader();
       reader.onload = (e) => {
-        const base64String = e.target?.result as string;
-        setPreview(base64String);
-        onChange(base64String);
-        setIsUploading(false);
+        img.src = e.target?.result as string;
       };
       reader.readAsDataURL(file);
     } catch (error) {
