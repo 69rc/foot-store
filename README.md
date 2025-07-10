@@ -1,4 +1,4 @@
-# SoleStyle - E-commerce Shoe Store
+# Footwears - E-commerce Shoe Store
 
 A complete online shoe store built with React, Express.js, PostgreSQL, and Replit Auth.
 
@@ -33,7 +33,7 @@ A complete online shoe store built with React, Express.js, PostgreSQL, and Repli
 
 ```bash
 git clone <your-repo-url>
-cd solestyle
+cd Footwears
 ```
 
 ### 2. Install Dependencies
@@ -49,12 +49,12 @@ npm install
 1. Install PostgreSQL on your system
 2. Create a new database:
 ```bash
-createdb solestyle
+createdb Footwears
 ```
 
 3. Get your database connection string:
 ```
-postgresql://username:password@localhost:5432/solestyle
+postgresql://username:password@localhost:5432/Footwears
 ```
 
 #### Option B: Using Neon (Serverless PostgreSQL)
@@ -69,7 +69,7 @@ Create a `.env` file in the root directory:
 
 ```env
 # Database
-DATABASE_URL=postgresql://username:password@localhost:5432/solestyle
+DATABASE_URL=postgresql://username:password@localhost:5432/Footwears
 
 # Session Security
 SESSION_SECRET=your-super-secret-key-here-make-it-long-and-random
@@ -84,7 +84,7 @@ PGHOST=localhost
 PGPORT=5432
 PGUSER=your-username
 PGPASSWORD=your-password
-PGDATABASE=solestyle
+PGDATABASE=Footwears
 ```
 
 ### 5. Database Schema Setup
@@ -110,7 +110,7 @@ The application will be available at `http://localhost:5000`
 ## Project Structure
 
 ```
-solestyle/
+Footwears/
 ├── client/                 # React frontend
 │   ├── src/
 │   │   ├── components/     # UI components

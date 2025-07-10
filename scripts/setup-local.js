@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 
-console.log('🚀 Setting up SoleStyle for local development...\n');
+console.log('🚀 Setting up Footwears for local development...\n');
 
 // Check if Node.js version is compatible
 const nodeVersion = process.version;
@@ -32,7 +32,7 @@ if (!fs.existsSync(envPath)) {
   console.log('📝 Creating .env file...');
   
   const envContent = `# Database Configuration
-DATABASE_URL=postgresql://postgres:password@localhost:5432/solestyle
+DATABASE_URL=postgresql://postgres:password@localhost:5432/Footwears
 
 # Session Security (generate a secure random string)
 SESSION_SECRET=${generateRandomString(64)}
@@ -49,7 +49,7 @@ PGHOST=localhost
 PGPORT=5432
 PGUSER=postgres
 PGPASSWORD=password
-PGDATABASE=solestyle
+PGDATABASE=Footwears
 `;
 
   fs.writeFileSync(envPath, envContent);

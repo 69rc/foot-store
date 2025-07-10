@@ -9,7 +9,7 @@ export default function Footer() {
           <div>
             <div className="flex items-center mb-4">
               <ShoppingBag className="h-8 w-8 text-accent mr-2" />
-              <h3 className="text-2xl font-bold">SoleStyle</h3>
+              <h3 className="text-2xl font-bold">Footwears</h3>
             </div>
             <p className="text-gray-300 mb-4">
               Your destination for premium footwear. Step into style with our curated collection of shoes for every occasion.
@@ -117,7 +117,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="border-t border-gray-600 mt-8 pt-8 text-center text-gray-300">
-          <p>&copy; 2024 SoleStyle. All rights reserved.</p>
+          <p>&copy; 2024 Footwears. All rights reserved.</p>
         </div>
       </div>
     </footer>

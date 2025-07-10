@@ -1,8 +1,8 @@
-# SoleStyle - E-commerce Shoe Store
+# Footwears - E-commerce Shoe Store
 
 ## Overview
 
-SoleStyle is a modern e-commerce web application built for selling shoes online. It features a full-stack architecture with user authentication, product management, shopping cart functionality, and order processing. The application uses React with TypeScript for the frontend, Express.js for the backend, and PostgreSQL with Drizzle ORM for data persistence.
+Footwears is a modern e-commerce web application built for selling shoes online. It features a full-stack architecture with user authentication, product management, shopping cart functionality, and order processing. The application uses React with TypeScript for the frontend, Express.js for the backend, and PostgreSQL with Drizzle ORM for data persistence.
 
 ## System Architecture
 

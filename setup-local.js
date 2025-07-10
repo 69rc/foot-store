@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 
-console.log('🚀 Setting up SoleStyle for local development...\n');
+console.log('🚀 Setting up Footwears for local development...\n');
 
 // Check if Node.js version is compatible
 const nodeVersion = process.version;
@@ -23,7 +23,7 @@ if (!fs.existsSync(envPath)) {
   console.log('📝 Creating .env file...');
   
   const envContent = `# Database Configuration
-DATABASE_URL=postgresql://postgres:password@localhost:5432/solestyle
+DATABASE_URL=postgresql://postgres:password@localhost:5432/Footwears
 
 # Session Security (generate a secure random string)
 SESSION_SECRET=your-super-secret-key-here-change-this-to-something-random-and-secure
@@ -39,7 +39,7 @@ PGHOST=localhost
 PGPORT=5432
 PGUSER=postgres
 PGPASSWORD=password
-PGDATABASE=solestyle
+PGDATABASE=Footwears
 `;
 
   fs.writeFileSync(envPath, envContent);
@@ -148,17 +148,17 @@ async function initializeDatabase() {
   try {
     // Connect to PostgreSQL server (not specific database)
     const pool = new Pool({
-      connectionString: connectionString.replace('/solestyle', '/postgres')
+      connectionString: connectionString.replace('/Footwears', '/postgres')
     });
     
     // Check if database exists
     const result = await pool.query(
-      "SELECT 1 FROM pg_database WHERE datname = 'solestyle'"
+      "SELECT 1 FROM pg_database WHERE datname = 'Footwears'"
     );
     
     if (result.rows.length === 0) {
       console.log('Creating database...');
-      await pool.query('CREATE DATABASE solestyle');
+      await pool.query('CREATE DATABASE Footwears');
       console.log('✅ Database created successfully');
     } else {
       console.log('✅ Database already exists');
@@ -166,9 +166,9 @@ async function initializeDatabase() {
     
     await pool.end();
     
-    // Now connect to the solestyle database and create tables
+    // Now connect to the Footwears database and create tables
     const dbPool = new Pool({
-      connectionString: process.env.DATABASE_URL || 'postgresql://postgres:password@localhost:5432/solestyle'
+      connectionString: process.env.DATABASE_URL || 'postgresql://postgres:password@localhost:5432/Footwears'
     });
     
     console.log('Setting up database schema...');
@@ -210,7 +210,7 @@ const fs = require('fs');
 // Load environment variables
 require('dotenv').config();
 
-console.log('🚀 Starting SoleStyle in local development mode...');
+console.log('🚀 Starting Footwears in local development mode...');
 
 // Check if .env exists
 if (!fs.existsSync('.env')) {

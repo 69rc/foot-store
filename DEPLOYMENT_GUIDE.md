@@ -1,13 +1,13 @@
-# SoleStyle Local Deployment Guide
+# Footwears Local Deployment Guide
 
-This guide will help you set up and run the SoleStyle e-commerce application on your local machine.
+This guide will help you set up and run the Footwears e-commerce application on your local machine.
 
 ## Quick Start
 
 ```bash
 # 1. Clone the repository
 git clone <your-repo-url>
-cd solestyle
+cd Footwears
 
 # 2. Run the setup script
 node scripts/setup-local.js
@@ -45,7 +45,7 @@ Visit `http://localhost:5000` and click "Sign In" to create a test admin user.
 # Using Homebrew
 brew install postgresql
 brew services start postgresql
-createdb solestyle
+createdb Footwears
 ```
 
 **Linux (Ubuntu/Debian):**
@@ -53,7 +53,7 @@ createdb solestyle
 sudo apt update
 sudo apt install postgresql postgresql-contrib
 sudo systemctl start postgresql
-sudo -u postgres createdb solestyle
+sudo -u postgres createdb Footwears
 ```
 
 #### Option 2: Cloud PostgreSQL (Recommended)
@@ -79,7 +79,7 @@ After running the setup script, update your `.env` file:
 
 ```env
 # Update this with your actual database credentials
-DATABASE_URL=postgresql://username:password@localhost:5432/solestyle
+DATABASE_URL=postgresql://username:password@localhost:5432/Footwears
 
 # Generate a secure session secret
 SESSION_SECRET=your-generated-secret-key
@@ -170,13 +170,13 @@ sudo systemctl start postgresql  # Linux
 brew services start postgresql  # macOS
 ```
 
-**Error: `database "solestyle" does not exist`**
+**Error: `database "Footwears" does not exist`**
 ```bash
 # Create the database
-createdb solestyle
+createdb Footwears
 
 # Or using psql
-psql -U postgres -c "CREATE DATABASE solestyle;"
+psql -U postgres -c "CREATE DATABASE Footwears;"
 ```
 
 **Error: `password authentication failed`**
@@ -246,7 +246,7 @@ If you encounter issues:
 ## File Structure
 
 ```
-solestyle/
+Footwears/
 ├── client/              # React frontend
 ├── server/              # Express backend
 ├── shared/              # Shared types and schemas

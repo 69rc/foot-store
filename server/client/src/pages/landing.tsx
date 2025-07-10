@@ -11,7 +11,7 @@ export default function Landing() {
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
               <ShoppingBag className="h-8 w-8 text-primary mr-2" />
-              <h1 className="text-2xl font-bold text-primary">SoleStyle</h1>
+              <h1 className="text-2xl font-bold text-primary">Footwears</h1>
             </div>
             <Button onClick={() => window.location.href = '/api/login'}>
               Sign In
@@ -55,7 +55,7 @@ export default function Landing() {
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Why Choose SoleStyle?</h2>
+            <h2 className="text-3xl font-bold mb-4">Why Choose Footwears?</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
               We're committed to providing you with the best shopping experience
             </p>
@@ -123,7 +123,7 @@ export default function Landing() {
             Ready to Find Your Perfect Pair?
           </h2>
           <p className="text-xl mb-8 text-gray-300">
-            Join thousands of happy customers who trust SoleStyle
+            Join thousands of happy customers who trust Footwears
           </p>
           <Button 
             size="lg" 
@@ -142,7 +142,7 @@ export default function Landing() {
             <div>
               <div className="flex items-center mb-4">
                 <ShoppingBag className="h-8 w-8 text-accent mr-2" />
-                <h3 className="text-2xl font-bold">SoleStyle</h3>
+                <h3 className="text-2xl font-bold">Footwears</h3>
               </div>
               <p className="text-gray-300">
                 Your destination for premium footwear. Step into style with our curated collection.
@@ -174,7 +174,7 @@ export default function Landing() {
             </div>
           </div>
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 SoleStyle. All rights reserved.</p>
+            <p>&copy; 2024 Footwears. All rights reserved.</p>
           </div>
         </div>
       </footer>
