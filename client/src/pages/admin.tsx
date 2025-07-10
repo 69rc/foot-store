@@ -16,6 +16,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Edit, Trash2, Plus, Package, ShoppingCart, DollarSign, Users } from "lucide-react";
+import ImageUpload from "@/components/image-upload";
 
 export default function Admin() {
   const { toast } = useToast();
@@ -263,12 +264,11 @@ export default function Admin() {
                     />
                   </div>
                   <div className="md:col-span-2">
-                    <Label htmlFor="imageUrl">Image URL</Label>
-                    <Input
-                      id="imageUrl"
+                    <Label>Product Image</Label>
+                    <ImageUpload
                       value={newProduct.imageUrl}
-                      onChange={(e) => setNewProduct({ ...newProduct, imageUrl: e.target.value })}
-                      placeholder="https://example.com/image.jpg"
+                      onChange={(value) => setNewProduct({ ...newProduct, imageUrl: value })}
+                      disabled={addProductMutation.isPending}
                     />
                   </div>
                   <div className="md:col-span-2">

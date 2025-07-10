@@ -127,7 +127,24 @@ SoleStyle is a modern e-commerce web application built for selling shoes online.
 
 Preferred communication style: Simple, everyday language.
 
+## Recent Changes
+
+### January 10, 2025 - Major UI Improvements & Feature Additions
+- ✅ **Enhanced Landing Page**: Redesigned with modern gradients, improved typography, and better visual hierarchy
+- ✅ **Image Upload System**: Added drag-and-drop image upload component for product management
+- ✅ **Admin Interface**: Enhanced product creation/editing with local image upload support
+- ✅ **Product Cards**: Redesigned with hover effects, better badges, and improved information layout
+- ✅ **Session Management**: Fixed session secret configuration for proper authentication
+- ✅ **Database Export**: Created export functionality for local development and backup
+- ✅ **ES Module Compatibility**: Resolved import/export issues for cleaner code structure
+
+### Technical Improvements
+- **Image Storage**: Products now support base64 image storage for local development
+- **UI Components**: Enhanced with modern design patterns and micro-interactions
+- **Color Scheme**: Updated with indigo/purple gradient theme for better brand consistency
+- **Error Handling**: Improved image loading with fallback placeholders
+
 ## Changelog
 
-Changelog:
-- July 05, 2025. Initial setup
+- July 05, 2025: Initial setup
+- January 10, 2025: Major UI overhaul, image upload functionality, and enhanced user experience

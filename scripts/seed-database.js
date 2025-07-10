@@ -1,5 +1,6 @@
-require('dotenv').config();
-const { Pool } = require('pg');
+import dotenv from 'dotenv';
+import { Pool } from '@neondatabase/serverless';
+dotenv.config();
 
 const sampleProducts = [
   {
