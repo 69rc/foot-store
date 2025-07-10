@@ -96,7 +96,7 @@ NODE_ENV=development
 npm run db:push
 
 # Verify tables were created
-psql ₦DATABASE_URL -c "\dt"
+psql$DATABASE_URL -c "\dt"
 ```
 
 ### Sample Data

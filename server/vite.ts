@@ -16,7 +16,7 @@ export function log(message: string, source = "express") {
     hour12: true,
   });
 
-  console.log(`₦{formattedTime} [₦{source}] ₦{message}`);
+  console.log(`₦{formattedTime} [₦{source}]${message}`);
 }
 
 export async function setupVite(app: Express, server: Server) {
@@ -72,7 +72,7 @@ export function serveStatic(app: Express) {
 
   if (!fs.existsSync(distPath)) {
     throw new Error(
-      `Could not find the build directory: ₦{distPath}, make sure to build the client first`,
+      `Could not find the build directory:${distPath}, make sure to build the client first`,
     );
   }
 

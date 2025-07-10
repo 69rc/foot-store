@@ -101,7 +101,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             <div className="flex items-center justify-between">
               <div className="flex flex-col">
                 <span className="text-2xl font-bold text-gray-900">
-                  ₦{product.price}
+                 ${product.price}
                 </span>
                 <span className="text-sm text-gray-500">Free shipping</span>
               </div>

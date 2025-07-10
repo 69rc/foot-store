@@ -29,18 +29,18 @@ export default function Navigation() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <Link href="/" className={`text-gray-700 hover:text-gray-900 font-medium transition-colors pb-1 ₦{location === "/" ? "text-gray-900 border-b-2 border-gray-900" : ""}`}>
+            <Link href="/" className={`text-gray-700 hover:text-gray-900 font-medium transition-colors pb-1${location === "/" ? "text-gray-900 border-b-2 border-gray-900" : ""}`}>
               Home
             </Link>
-            <Link href="/products" className={`text-gray-700 hover:text-gray-900 font-medium transition-colors pb-1 ₦{location === "/products" ? "text-gray-900 border-b-2 border-gray-900" : ""}`}>
+            <Link href="/products" className={`text-gray-700 hover:text-gray-900 font-medium transition-colors pb-1${location === "/products" ? "text-gray-900 border-b-2 border-gray-900" : ""}`}>
               Products
             </Link>
             {user?.role === "admin" && (
-              <Link href="/admin" className={`text-gray-700 hover:text-gray-900 font-medium transition-colors pb-1 ₦{location === "/admin" ? "text-gray-900 border-b-2 border-gray-900" : ""}`}>
+              <Link href="/admin" className={`text-gray-700 hover:text-gray-900 font-medium transition-colors pb-1${location === "/admin" ? "text-gray-900 border-b-2 border-gray-900" : ""}`}>
                 Admin
               </Link>
             )}
-            <Link href="/orders" className={`text-gray-700 hover:text-gray-900 font-medium transition-colors pb-1 ₦{location === "/orders" ? "text-gray-900 border-b-2 border-gray-900" : ""}`}>
+            <Link href="/orders" className={`text-gray-700 hover:text-gray-900 font-medium transition-colors pb-1${location === "/orders" ? "text-gray-900 border-b-2 border-gray-900" : ""}`}>
               Orders
             </Link>
           </div>

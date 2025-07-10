@@ -20,9 +20,9 @@ app.use((req, res, next) => {
   res.on("finish", () => {
     const duration = Date.now() - start;
     if (path.startsWith("/api")) {
-      let logLine = `₦{req.method} ₦{path} ₦{res.statusCode} in ₦{duration}ms`;
+      let logLine = `₦{req.method}${path}${res.statusCode} in${duration}ms`;
       if (capturedJsonResponse) {
-        logLine += ` :: ₦{JSON.stringify(capturedJsonResponse)}`;
+        logLine += ` ::${JSON.stringify(capturedJsonResponse)}`;
       }
 
       if (logLine.length > 80) {
@@ -65,6 +65,6 @@ app.use((req, res, next) => {
     host: "0.0.0.0",
     reusePort: true,
   }, () => {
-    log(`serving on port ₦{port}`);
+    log(`serving on port${port}`);
   });
 })();
