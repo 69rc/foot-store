@@ -6,7 +6,7 @@ const sampleProducts = [
   {
     name: "Classic Oxford Brown",
     description: "Elegant brown leather oxford shoes perfect for formal occasions and business meetings.",
-    price: "129.99",
+    price: "52000",
     category: "men",
     sizes: ["7", "8", "9", "10", "11", "12"],
     stock: 15,
@@ -15,7 +15,7 @@ const sampleProducts = [
   {
     name: "Elegant Black Heels",
     description: "Sophisticated black heels that combine style and comfort for the modern woman.",
-    price: "89.99",
+    price: "36000",
     category: "women",
     sizes: ["5", "6", "7", "8", "9", "10"],
     stock: 12,
@@ -24,7 +24,7 @@ const sampleProducts = [
   {
     name: "Casual Canvas Sneakers",
     description: "Comfortable and stylish canvas sneakers perfect for everyday wear and casual outings.",
-    price: "59.99",
+    price: "24000",
     category: "men",
     sizes: ["7", "8", "9", "10", "11", "12"],
     stock: 25,
@@ -33,7 +33,7 @@ const sampleProducts = [
   {
     name: "Kids Rainbow Sneakers",
     description: "Colorful and fun sneakers that kids will love, with comfortable padding and durable construction.",
-    price: "39.99",
+    price: "16000",
     category: "kids",
     sizes: ["10", "11", "12", "13", "1", "2", "3"],
     stock: 20,
@@ -42,7 +42,7 @@ const sampleProducts = [
   {
     name: "Athletic Running Shoes",
     description: "High-performance running shoes designed for serious athletes and fitness enthusiasts.",
-    price: "159.99",
+    price: "64000",
     category: "sports",
     sizes: ["6", "7", "8", "9", "10", "11", "12", "13"],
     stock: 18,
@@ -51,7 +51,7 @@ const sampleProducts = [
   {
     name: "Women's White Sneakers",
     description: "Clean and versatile white sneakers that pair perfectly with any casual outfit.",
-    price: "79.99",
+    price: "32000",
     category: "women",
     sizes: ["5", "6", "7", "8", "9", "10"],
     stock: 22,
@@ -60,7 +60,7 @@ const sampleProducts = [
   {
     name: "Leather Boots",
     description: "Rugged leather boots built to last, perfect for outdoor adventures and work environments.",
-    price: "189.99",
+    price: "76000",
     category: "men",
     sizes: ["7", "8", "9", "10", "11", "12"],
     stock: 10,
@@ -69,7 +69,7 @@ const sampleProducts = [
   {
     name: "Ballet Flats",
     description: "Comfortable and elegant ballet flats suitable for both office wear and casual occasions.",
-    price: "69.99",
+    price: "28000",
     category: "women",
     sizes: ["5", "6", "7", "8", "9", "10"],
     stock: 16,
@@ -78,7 +78,7 @@ const sampleProducts = [
   {
     name: "Basketball Shoes",
     description: "Professional basketball shoes with superior grip and ankle support for optimal performance.",
-    price: "149.99",
+    price: "60000",
     category: "sports",
     sizes: ["6", "7", "8", "9", "10", "11", "12", "13"],
     stock: 14,
@@ -87,7 +87,7 @@ const sampleProducts = [
   {
     name: "Kids School Shoes",
     description: "Durable and comfortable school shoes designed to withstand daily playground activities.",
-    price: "49.99",
+    price: "20000",
     category: "kids",
     sizes: ["10", "11", "12", "13", "1", "2", "3"],
     stock: 30,
@@ -96,7 +96,7 @@ const sampleProducts = [
   {
     name: "Tennis Shoes",
     description: "Professional tennis shoes with excellent court grip and lightweight design for quick movements.",
-    price: "119.99",
+    price: "48000",
     category: "sports",
     sizes: ["6", "7", "8", "9", "10", "11", "12"],
     stock: 12,
@@ -105,7 +105,7 @@ const sampleProducts = [
   {
     name: "Summer Sandals",
     description: "Lightweight and breathable sandals perfect for summer days and beach vacations.",
-    price: "45.99",
+    price: "18000",
     category: "women",
     sizes: ["5", "6", "7", "8", "9", "10"],
     stock: 25,

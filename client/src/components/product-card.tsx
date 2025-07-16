@@ -15,7 +15,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 
   return (
     <>
-      <Card className="group cursor-pointer hover:shadow-2xl transition-all duration-500 bg-white overflow-hidden border-0 shadow-md">
+      <Card className="group cursor-pointer hover:shadow-2xl transition-all duration-500 bg-white overflow-hidden border-0 shadow-md mt-4">
         <CardContent className="p-0">
           <div className="relative overflow-hidden">
             <div 
@@ -28,7 +28,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
-                  target.src = `data:image/svg+xml;base64,₦{btoa(`
+                  target.src = `data:image/svg+xml;base64,${btoa(`
                     <svg width="300" height="300" xmlns="http://www.w3.org/2000/svg">
                       <rect width="100%" height="100%" fill="#f3f4f6"/>
                       <rect x="25%" y="25%" width="50%" height="50%" fill="#d1d5db" rx="8"/>
@@ -101,7 +101,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             <div className="flex items-center justify-between">
               <div className="flex flex-col">
                 <span className="text-2xl font-bold text-gray-900">
-                 ${product.price}
+                  ₦{Number(product.price).toLocaleString('en-NG')}
                 </span>
                 <span className="text-sm text-gray-500">Free shipping</span>
               </div>

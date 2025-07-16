@@ -178,7 +178,7 @@ export default function Cart() {
                           <div className="flex-1">
                             <h3 className="font-medium">{item.product.name}</h3>
                             <p className="text-sm text-gray-600">Size: {item.size}</p>
-                            <p className="text-sm font-semibold text-primary">₦{item.product.price}</p>
+                            <p className="text-sm font-semibold text-primary">₦{Number(item.product.price).toLocaleString('en-NG')}</p>
                           </div>
                           <div className="flex items-center space-x-2">
                             <Button
@@ -223,7 +223,7 @@ export default function Cart() {
                     <div className="space-y-4">
                       <div className="flex justify-between items-center">
                         <span>Subtotal</span>
-                        <span>₦{total.toFixed(2)}</span>
+                        <span>₦{total.toLocaleString('en-NG')}</span>
                       </div>
                       <div className="flex justify-between items-center">
                         <span>Shipping</span>
@@ -232,7 +232,7 @@ export default function Cart() {
                       <div className="border-t pt-4">
                         <div className="flex justify-between items-center font-semibold text-lg">
                           <span>Total</span>
-                          <span>₦{total.toFixed(2)}</span>
+                          <span>₦{total.toLocaleString('en-NG')}</span>
                         </div>
                       </div>
                       <Button 

@@ -39,7 +39,7 @@ A modern e-commerce application for selling shoes online, built with React, Expr
 1. **Clone the repository**
    ```bash
    git clone <repository-url>
-   cd solestyle
+   cd Footwaer
    ```
 
 2. **Install dependencies**
@@ -51,7 +51,7 @@ A modern e-commerce application for selling shoes online, built with React, Expr
    
    Create a `.env` file in the root directory:
    ```env
-   DATABASE_URL=postgresql://username:password@localhost:5432/solestyle
+   DATABASE_URL=postgresql://username:password@localhost:5432/Footwaer
    SESSION_SECRET=your-session-secret-key-here
    NODE_ENV=development
    ```
@@ -61,7 +61,7 @@ A modern e-commerce application for selling shoes online, built with React, Expr
    Create a PostgreSQL database and run migrations:
    ```bash
    # Create database
-   createdb solestyle
+   createdb Footwaer
    
    # Push schema to database
    npm run db:push

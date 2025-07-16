@@ -98,7 +98,7 @@ export default function ProductModal({
           <div>
             <h1 className="text-3xl font-bold mb-4">{product.name}</h1>
             <div className="flex items-center space-x-4 mb-4">
-              <span className="text-3xl font-bold text-primary">₦{product.price}</span>
+              <span className="text-3xl font-bold text-primary">₦{Number(product.price).toLocaleString('en-NG')}</span>
               <div className="flex items-center space-x-1">
                 {Array.from({ length: 5 }).map((_, i) => (
                   <Star 

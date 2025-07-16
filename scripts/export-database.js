@@ -49,7 +49,7 @@ async function exportDatabase() {
     // Create export object
     const exportData = {
       timestamp: new Date().toISOString(),
-      database_name: 'solestyle_db',
+      database_name: 'Footwaer_db',
       tables: {
         users: users.rows,
         products: products.rows,
@@ -67,7 +67,7 @@ async function exportDatabase() {
     
     // Generate filename with timestamp
     const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-    const filename = `solestyle-db-export-₦{timestamp}.json`;
+    const filename = `Footwaer-db-export-₦{timestamp}.json`;
     const filepath = path.join(exportsDir, filename);
     
     // Write to file

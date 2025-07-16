@@ -1,7 +1,7 @@
 {
   "timestamp": "2025-01-10T11:25:00.000Z",
-  "database_name": "solestyle_db",
-  "description": "SoleStyle e-commerce database export with user, product, order, and cart tables",
+  "database_name": "Footwaer_db",
+  "description": "Footwaer e-commerce database export with user, product, order, and cart tables",
   "tables": {
     "users": [
       {
