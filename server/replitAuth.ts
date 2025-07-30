@@ -84,14 +84,14 @@ export async function setupAuth(app: Express) {
     verified(null, user);
   };
 
-  for (const domain of process.env
-    .REPLIT_DOMAINS!.split(",")) {
+  // Loop through each domain from REPLIT_DOMAINS and set up passport strategy for each
+  for (const domain of process.env.REPLIT_DOMAINS!.split(",")) {
     const strategy = new Strategy(
       {
-        name: `replitauth:₦{domain}`,
+        name: `replitauth:${domain}`,  // Fixed the template literal here
         config,
         scope: "openid email profile offline_access",
-        callbackURL: `https://₦{domain}/api/callback`,
+        callbackURL: `https://${domain}/api/callback`,  // Fixed the template literal here
       },
       verify,
     );
@@ -102,14 +102,14 @@ export async function setupAuth(app: Express) {
   passport.deserializeUser((user: Express.User, cb) => cb(null, user));
 
   app.get("/api/login", (req, res, next) => {
-    passport.authenticate(`replitauth:₦{req.hostname}`, {
+    passport.authenticate(`replitauth:${req.hostname}`, {  // Fixed the template literal here
       prompt: "login consent",
       scope: ["openid", "email", "profile", "offline_access"],
     })(req, res, next);
   });
 
   app.get("/api/callback", (req, res, next) => {
-    passport.authenticate(`replitauth:₦{req.hostname}`, {
+    passport.authenticate(`replitauth:${req.hostname}`, {  // Fixed the template literal here
       successReturnToOrRedirect: "/",
       failureRedirect: "/api/login",
     })(req, res, next);
@@ -120,7 +120,7 @@ export async function setupAuth(app: Express) {
       res.redirect(
         client.buildEndSessionUrl(config, {
           client_id: process.env.REPL_ID!,
-          post_logout_redirect_uri: `₦{req.protocol}://₦{req.hostname}`,
+          post_logout_redirect_uri: `${req.protocol}://${req.hostname}`,  // Fixed the template literal here
         }).href
       );
     });
