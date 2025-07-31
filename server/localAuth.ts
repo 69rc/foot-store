@@ -1,87 +1,74 @@
-import type { Express, RequestHandler } from "express";
-import session from "express-session";
-import { storage } from "./storage";
+import type { Request, Response, NextFunction } from 'express';
+import { db } from './db-sqlite.js';
+import { users } from '../shared/schema-sqlite.js';
+import { eq } from 'drizzle-orm';
+import type { User } from '../shared/schema-sqlite.js';
 
-// Simple session configuration for local development
-export function getSession() {
-  return session({
-    secret: process.env.SESSION_SECRET || 'local-dev-secret-change-this',
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-      httpOnly: true,
-      secure: false, // Set to false for local development
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 1 week
-    },
-  });
+// Extend session type
+declare module 'express-session' {
+  interface SessionData {
+    userId?: string;
+  }
+}
+
+// Extend Express Request type
+declare global {
+  namespace Express {
+    interface Request {
+      user?: User;
+    }
+  }
 }
 
 // Simple local authentication for development
-export async function setupLocalAuth(app: Express) {
-  app.use(getSession());
-
-  // Login route - creates a test user
-  app.get('/api/login', async (req: any, res) => {
-    const testUser = {
-      id: 'test-user-123',
-      email: 'test@example.com',
-      firstName: 'Test',
-      lastName: 'User',
-      profileImageUrl: null,
-    };
-
-    try {
-      // Create or update the test user
-      await storage.upsertUser(testUser);
-      
-      // Store user in session
-      req.session.user = { ...testUser, role: 'admin' }; // Make test user admin for easy testing
-      
-      res.redirect('/');
-    } catch (error) {
-      console.error('Login error:', error);
-      res.status(500).json({ message: 'Login failed' });
+export async function localAuthMiddleware(req: Request, res: Response, next: NextFunction) {
+  // In local development, we'll simulate authentication
+  // You can switch users by adding ?user=admin or ?user=customer to any URL
+  
+  const userType = req.query.user as string || req.session?.userId;
+  
+  try {
+    let user: User | undefined;
+    
+    if (userType === 'admin') {
+      user = await db.select().from(users).where(eq(users.id, 'admin-local')).limit(1).then(rows => rows[0]);
+    } else if (userType === 'customer') {
+      user = await db.select().from(users).where(eq(users.id, 'customer-local')).limit(1).then(rows => rows[0]);
     }
-  });
-
-  // Logout route
-  app.get('/api/logout', (req: any, res) => {
-    req.session.destroy((err: any) => {
-      if (err) {
-        console.error('Logout error:', err);
-      }
-      res.redirect('/');
-    });
-  });
-
-  // Get current user
-  app.get('/api/auth/user', async (req: any, res) => {
-    if (req.session.user) {
-      try {
-        // Get user from database to ensure we have latest data
-        const user = await storage.getUser(req.session.user.id);
-        if (user) {
-          const userWithRole = { ...user, role: req.session.user.role || 'customer' };
-          res.json(userWithRole);
-        } else {
-          res.status(401).json({ message: 'User not found' });
-        }
-      } catch (error) {
-        console.error('Error fetching user:', error);
-        res.status(500).json({ message: 'Failed to fetch user' });
-      }
-    } else {
-      res.status(401).json({ message: 'Not authenticated' });
+    
+    if (user) {
+      req.session!.userId = user.id;
+      req.user = user;
     }
-  });
+    
+    next();
+  } catch (error) {
+    console.error('Auth middleware error:', error);
+    next();
+  }
 }
 
-// Authentication middleware for local development
-export const isAuthenticated: RequestHandler = (req: any, res, next) => {
-  if (req.session.user) {
-    req.user = { claims: { sub: req.session.user.id } };
-    next();
-  } else {
-    res.status(401).json({ message: 'Unauthorized' });
+export function requireAuth(req: Request, res: Response, next: NextFunction) {
+  if (!req.user) {
+    return res.status(401).json({ 
+      message: 'Not authenticated. Add ?user=admin or ?user=customer to your URL for local development.' 
+    });
   }
-};
+  next();
+}
+
+export function requireAdmin(req: Request, res: Response, next: NextFunction) {
+  if (!req.user) {
+    return res.status(401).json({ 
+      message: 'Not authenticated. Add ?user=admin to your URL for admin access.' 
+    });
+  }
+  
+  if (req.user.role !== 'admin') {
+    return res.status(403).json({ 
+      message: 'Admin access required. Add ?user=admin to your URL.' 
+    });
+  }
+  
+  next();
+}

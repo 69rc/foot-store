@@ -1,0 +1,17 @@
+import Database from 'better-sqlite3';
+import { drizzle } from 'drizzle-orm/better-sqlite3';
+import * as schema from '../shared/schema-sqlite';
+import path from 'path';
+
+// Create database file in project root
+const dbPath = path.join(process.cwd(), 'local-database.sqlite');
+const sqlite = new Database(dbPath);
+
+// Enable foreign keys
+sqlite.pragma('foreign_keys = ON');
+
+export const db = drizzle(sqlite, { schema });
+export { sqlite };
+
+// Export schema for migrations
+export * from '../shared/schema-sqlite';

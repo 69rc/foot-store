@@ -1,0 +1,131 @@
+{
+  "timestamp": "2025-07-31T07:53:47.275Z",
+  "users": [
+    {
+      "id": "admin-local",
+      "email": "admin@footwears.com",
+      "firstName": "Admin",
+      "lastName": "User",
+      "profileImageUrl": null,
+      "role": "admin",
+      "createdAt": "2025-07-31T07:52:10.000Z",
+      "updatedAt": "2025-07-31T07:52:10.000Z"
+    },
+    {
+      "id": "customer-local",
+      "email": "customer@footwears.com",
+      "firstName": "John",
+      "lastName": "Doe",
+      "profileImageUrl": null,
+      "role": "customer",
+      "createdAt": "2025-07-31T07:52:10.000Z",
+      "updatedAt": "2025-07-31T07:52:10.000Z"
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "Nike Air Max 90",
+      "description": "Classic comfort meets modern style",
+      "price": 120,
+      "category": "men",
+      "sizes": [
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "stock": 50,
+      "imageUrl": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZTJlOGYwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxOCIgZmlsbD0iIzM3NDE1MSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPk5pa2UgQWlyIE1heDwvdGV4dD48L3N2Zz4=",
+      "imageUrls": [],
+      "isActive": true,
+      "createdAt": "2025-07-31T07:52:10.000Z",
+      "updatedAt": "2025-07-31T07:52:10.000Z"
+    },
+    {
+      "id": 2,
+      "name": "Adidas Ultraboost",
+      "description": "Energy-returning running shoes",
+      "price": 180,
+      "category": "sports",
+      "sizes": [
+        "7",
+        "8",
+        "9",
+        "10",
+        "11"
+      ],
+      "stock": 30,
+      "imageUrl": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjNmNGY2Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxOCIgZmlsbD0iIzM3NDE1MSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkFkaWRhcyBVbHRyYWJvb3N0PC90ZXh0Pjwvc3ZnPg==",
+      "imageUrls": [],
+      "isActive": true,
+      "createdAt": "2025-07-31T07:52:10.000Z",
+      "updatedAt": "2025-07-31T07:52:10.000Z"
+    },
+    {
+      "id": 3,
+      "name": "Converse Chuck Taylor",
+      "description": "Timeless canvas sneakers",
+      "price": 55,
+      "category": "women",
+      "sizes": [
+        "6",
+        "7",
+        "8",
+        "9",
+        "10"
+      ],
+      "stock": 75,
+      "imageUrl": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZmVmM2M3Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxOCIgZmlsbD0iIzM3NDE1MSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkNvbnZlcnNlIEFsbCBTdGFyPC90ZXh0Pjwvc3ZnPg==",
+      "imageUrls": [],
+      "isActive": true,
+      "createdAt": "2025-07-31T07:52:10.000Z",
+      "updatedAt": "2025-07-31T07:52:10.000Z"
+    },
+    {
+      "id": 4,
+      "name": "Jordan 1 Retro",
+      "description": "Iconic basketball shoe",
+      "price": 170,
+      "category": "men",
+      "sizes": [
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13"
+      ],
+      "stock": 25,
+      "imageUrl": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZmVlMmUyIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxOCIgZmlsbD0iIzM3NDE1MSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkpvcmRhbiAxIFJldHJvPC90ZXh0Pjwvc3ZnPg==",
+      "imageUrls": [],
+      "isActive": true,
+      "createdAt": "2025-07-31T07:52:10.000Z",
+      "updatedAt": "2025-07-31T07:52:10.000Z"
+    },
+    {
+      "id": 5,
+      "name": "Puma Suede Kids",
+      "description": "Classic suede sneakers for kids",
+      "price": 45,
+      "category": "kids",
+      "sizes": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "stock": 40,
+      "imageUrl": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRmNGZmIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxOCIgZmlsbD0iIzM3NDE1MSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPlB1bWEgU3VlZGUgS2lkczwvdGV4dD48L3N2Zz4=",
+      "imageUrls": [],
+      "isActive": true,
+      "createdAt": "2025-07-31T07:52:10.000Z",
+      "updatedAt": "2025-07-31T07:52:10.000Z"
+    }
+  ],
+  "orders": [],
+  "orderItems": [],
+  "cartItems": []
+}
