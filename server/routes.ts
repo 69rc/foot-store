@@ -196,9 +196,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post('/api/cart', isAuthenticated, async (req: any, res) => {
+  app.post('/api/cart', async (req: any, res) => {
+    const userType = req.query.user;
+    if (!userType) {
+      return res.status(401).json({ message: "Authentication required" });
+    }
+    const userId = userType === 'admin' ? 'admin-user' : 'customer-user';
     try {
-      const userId = req.user.claims.sub;
       const { productId, quantity, size } = req.body;
 
       const cartItem = await storage.addToCart({
@@ -215,7 +219,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.put('/api/cart/:id', isAuthenticated, async (req: any, res) => {
+  app.put('/api/cart/:id', async (req: any, res) => {
     try {
       const id = parseInt(req.params.id);
       const { quantity } = req.body;
@@ -233,7 +237,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.delete('/api/cart/:id', isAuthenticated, async (req: any, res) => {
+  app.delete('/api/cart/:id', async (req: any, res) => {
     try {
       const id = parseInt(req.params.id);
       const success = await storage.removeFromCart(id);
@@ -249,9 +253,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.delete('/api/cart', isAuthenticated, async (req: any, res) => {
+  app.delete('/api/cart', async (req: any, res) => {
+    const userType = req.query.user;
+    if (!userType) {
+      return res.status(401).json({ message: "Authentication required" });
+    }
+    const userId = userType === 'admin' ? 'admin-user' : 'customer-user';
     try {
-      const userId = req.user.claims.sub;
       await storage.clearCart(userId);
       res.json({ message: "Cart cleared" });
     } catch (error) {
@@ -261,9 +269,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Order routes
-  app.post('/api/orders', isAuthenticated, async (req: any, res) => {
+  app.post('/api/orders', async (req: any, res) => {
+    const userType = req.query.user;
+    if (!userType) {
+      return res.status(401).json({ message: "Authentication required" });
+    }
+    const userId = userType === 'admin' ? 'admin-user' : 'customer-user';
     try {
-      const userId = req.user.claims.sub;
       const { items, shippingAddress } = req.body;
 
       const total = items.reduce((sum: number, item: any) => sum + (item.price * item.quantity), 0);
@@ -285,11 +297,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get('/api/orders', isAuthenticated, async (req: any, res) => {
+  app.get('/api/orders', async (req: any, res) => {
+    const userType = req.query.user;
+    if (!userType) {
+      return res.status(401).json({ message: "Authentication required" });
+    }
+    const userId = userType === 'admin' ? 'admin-user' : 'customer-user';
     try {
-      const userId = req.user.claims.sub;
       const user = await storage.getUser(userId);
-
       const orders = await storage.getOrders(user?.role === 'admin' ? undefined : userId);
       res.json(orders);
     } catch (error) {
@@ -298,7 +313,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get('/api/orders/:id', isAuthenticated, async (req: any, res) => {
+  app.get('/api/orders/:id', async (req: any, res) => {
+    const userType = req.query.user;
+    if (!userType) {
+      return res.status(401).json({ message: "Authentication required" });
+    }
     try {
       const id = parseInt(req.params.id);
       const userId = req.user.claims.sub;

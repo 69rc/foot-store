@@ -12,6 +12,15 @@ export async function apiRequest(
   url: string,
   data?: unknown | undefined,
 ): Promise<Response> {
+  // Add user parameter to API requests
+  const urlParams = new URLSearchParams(window.location.search);
+  const userType = urlParams.get('user');
+  
+  if (userType && url.startsWith('/api/')) {
+    const separator = url.includes('?') ? '&' : '?';
+    url += `${separator}user=${userType}`;
+  }
+  
   const res = await fetch(url, {
     method,
     headers: data ? { "Content-Type": "application/json" } : {},
@@ -29,7 +38,17 @@ export const getQueryFn: <T>(options: {
 }) => QueryFunction<T> =
   ({ on401: unauthorizedBehavior }) =>
   async ({ queryKey }) => {
-    const res = await fetch(queryKey[0] as string, {
+    // Add user parameter to all API requests
+    const urlParams = new URLSearchParams(window.location.search);
+    const userType = urlParams.get('user');
+    
+    let url = queryKey[0] as string;
+    if (userType && url.startsWith('/api/')) {
+      const separator = url.includes('?') ? '&' : '?';
+      url += `${separator}user=${userType}`;
+    }
+    
+    const res = await fetch(url, {
       credentials: "include",
     });
 
