@@ -15,11 +15,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Auth middleware (simplified for demo)
   // await setupAuth(app);
 
-  // Simple auth bypass for development
+  // Simple auth for demo purposes
   app.get('/api/auth/user', async (req: any, res) => {
     try {
-      // Check for user parameter in query string for simple demo
       const userType = req.query.user;
+      
+      if (!userType || (userType !== 'admin' && userType !== 'customer')) {
+        return res.status(401).json({ 
+          message: "Not authenticated. Add ?user=admin or ?user=customer to your URL for demo access." 
+        });
+      }
       
       let userId: string;
       let userData: any;
@@ -34,7 +39,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           profileImageUrl: null,
           role: 'admin'
         };
-      } else if (userType === 'customer') {
+      } else {
         userId = 'customer-user';
         userData = {
           id: userId,
@@ -44,19 +49,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
           profileImageUrl: null,
           role: 'customer'
         };
-      } else {
-        return res.status(401).json({ 
-          message: "Not authenticated. Add ?user=admin or ?user=customer to your URL for demo access." 
-        });
       }
 
-      // Ensure user exists in database
-      const existingUser = await storage.getUser(userId);
-      if (!existingUser) {
-        await storage.upsertUser(userData);
+      // Get or create user
+      let user = await storage.getUser(userId);
+      if (!user) {
+        try {
+          user = await storage.upsertUser(userData);
+        } catch (error: any) {
+          // If user exists but we couldn't find by ID, try to get by email
+          if (error.code === '23505') { // Unique constraint violation
+            user = await storage.getUserByEmail(userData.email);
+          }
+          if (!user) {
+            throw error;
+          }
+        }
       }
       
-      const user = await storage.getUser(userId);
       res.json(user);
     } catch (error) {
       console.error("Error fetching user:", error);
@@ -170,10 +180,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Cart routes
-  app.get('/api/cart', isAuthenticated, async (req: any, res) => {
+  // Cart routes (simplified auth for demo)
+  app.get('/api/cart', async (req: any, res) => {
+    const userType = req.query.user;
+    if (!userType) {
+      return res.status(401).json({ message: "Authentication required" });
+    }
+    const userId = userType === 'admin' ? 'admin-user' : 'customer-user';
     try {
-      const userId = req.user.claims.sub;
       const cartItems = await storage.getCartItems(userId);
       res.json(cartItems);
     } catch (error) {
