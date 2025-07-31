@@ -72,3 +72,13 @@ export function requireAdmin(req: Request, res: Response, next: NextFunction) {
   
   next();
 }
+
+// Add missing functions for compatibility with routes.ts
+export async function setupLocalAuth(app: any) {
+  // Local auth setup is handled in index-local.ts
+  return;
+}
+
+export function isAuthenticated(req: Request, res: Response, next: NextFunction) {
+  return requireAuth(req, res, next);
+}
