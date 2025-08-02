@@ -6,7 +6,7 @@ import { dirname } from 'path';
 import fs from 'fs';
 
 // Import local SQLite setup
-import { localAuthMiddleware } from './localAuth.js';
+import { authMiddleware, setupAuthRoutes } from './auth.js';
 import { setupRoutes } from './routes-local.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -31,8 +31,11 @@ app.use(session({
   },
 }));
 
-// Local authentication middleware
-app.use(localAuthMiddleware);
+// Authentication middleware
+app.use(authMiddleware);
+
+// Setup authentication routes
+setupAuthRoutes(app);
 
 // Setup API routes
 setupRoutes(app);
@@ -55,25 +58,22 @@ if (fs.existsSync(clientBuildPath)) {
       res.send(`
         <html>
           <body style="font-family: Arial, sans-serif; max-width: 800px; margin: 50px auto; padding: 20px;">
-            <h1>🚀 Footwears Local Development</h1>
+            <h1>🚀 Footwears Store</h1>
+            <h2>Welcome to the Footwears Online Store</h2>
+            <p>Please sign up or sign in to start shopping!</p>
             <h2>Setup Instructions:</h2>
             <ol>
               <li>Run: <code>npm run setup:local</code> to initialize the SQLite database</li>
               <li>Run: <code>npm run seed:local</code> to add sample data</li>
               <li>Run: <code>npm run build</code> to build the frontend</li>
-              <li>Restart the server: <code>npm run dev:local</code></li>
+              <li>Restart the server: <code>npm run dev</code></li>
             </ol>
-            <h2>Authentication:</h2>
-            <p>Add these parameters to any URL for local development:</p>
-            <ul>
-              <li><strong>Admin access:</strong> <code>?user=admin</code></li>
-              <li><strong>Customer access:</strong> <code>?user=customer</code></li>
-            </ul>
             <h2>API Endpoints:</h2>
             <ul>
-              <li><a href="/api/auth/user?user=admin">GET /api/auth/user?user=admin</a> - Get admin user</li>
-              <li><a href="/api/auth/user?user=customer">GET /api/auth/user?user=customer</a> - Get customer user</li>
+              <li><a href="/api/auth/user">GET /api/auth/user</a> - Get current user</li>
               <li><a href="/api/products">GET /api/products</a> - Get all products</li>
+              <li>POST /api/auth/signup - Create new account</li>
+              <li>POST /api/auth/signin - Sign in</li>
             </ul>
           </body>
         </html>

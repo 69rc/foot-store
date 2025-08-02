@@ -14,59 +14,40 @@ import {
   type CartItemWithProduct,
   type OrderWithItems
 } from "../shared/schema-sqlite.js";
-import { requireAuth, requireAdmin } from "./localAuth.js";
+import { requireAuth, requireAdmin } from "./auth.js";
 import { eq, and, like, gte, lte, desc, asc } from "drizzle-orm";
 import { z } from "zod";
 
 // The Express Request type is already extended in localAuth.ts
 
 export function setupRoutes(app: Express): void {
-  // Auth routes
-  app.get('/api/auth/user', async (req: Request, res: Response) => {
-    try {
-      if (!req.user) {
-        return res.status(401).json({ 
-          message: 'Not authenticated. Add ?user=admin or ?user=customer to your URL for local development.' 
-        });
-      }
-      res.json(req.user);
-    } catch (error) {
-      console.error("Error fetching user:", error);
-      res.status(500).json({ message: "Failed to fetch user" });
-    }
-  });
-
-  app.post('/api/auth/logout', (req: Request, res: Response) => {
-    req.session?.destroy((err) => {
-      if (err) {
-        return res.status(500).json({ message: "Failed to logout" });
-      }
-      res.json({ message: "Logged out successfully" });
-    });
-  });
 
   // Product routes
   app.get('/api/products', async (req: Request, res: Response) => {
     try {
       const { category, sizes, search, minPrice, maxPrice, sortBy = 'name', sortOrder = 'asc' } = req.query;
 
-      let query = db.select().from(products).where(eq(products.isActive, true));
-
+      // Build WHERE conditions
+      const conditions = [eq(products.isActive, true)];
+      
       if (category) {
-        query = query.where(eq(products.category, category as string));
+        conditions.push(eq(products.category, category as string));
       }
-
+      
       if (search) {
-        query = query.where(like(products.name, `%${search}%`));
+        conditions.push(like(products.name, `%${search}%`));
       }
-
+      
       if (minPrice) {
-        query = query.where(gte(products.price, parseFloat(minPrice as string)));
+        conditions.push(gte(products.price, parseFloat(minPrice as string)));
+      }
+      
+      if (maxPrice) {
+        conditions.push(lte(products.price, parseFloat(maxPrice as string)));
       }
 
-      if (maxPrice) {
-        query = query.where(lte(products.price, parseFloat(maxPrice as string)));
-      }
+      // Build query with all conditions
+      let query = db.select().from(products).where(and(...conditions));
 
       // Add sorting
       const sortColumn = products[sortBy as keyof typeof products] || products.name;
@@ -306,10 +287,12 @@ export function setupRoutes(app: Express): void {
     try {
       const isAdmin = req.user!.role === 'admin';
       
-      let orderQuery = db.select().from(orders);
+      let orderQuery;
       
       if (!isAdmin) {
-        orderQuery = orderQuery.where(eq(orders.userId, req.user!.id));
+        orderQuery = db.select().from(orders).where(eq(orders.userId, req.user!.id));
+      } else {
+        orderQuery = db.select().from(orders);
       }
       
       const ordersResult = await orderQuery.orderBy(desc(orders.createdAt));
@@ -384,7 +367,7 @@ export function setupRoutes(app: Express): void {
       // Create order
       const orderResult = await db.insert(orders).values({
         ...validation.data,
-        total: total.toString()
+        total
       }).returning();
 
       const order = orderResult[0];
@@ -395,13 +378,13 @@ export function setupRoutes(app: Express): void {
           orderId: order.id,
           productId: item.productId,
           quantity: item.quantity,
-          price: item.product.price.toString(),
+          price: item.product.price,
           size: item.size || undefined
         });
 
         // Update product stock
         await db.update(products)
-          .set({ stock: Math.max(0, item.product.stock - item.quantity) })
+          .set({ stock: Math.max(0, (item.product.stock || 0) - item.quantity) })
           .where(eq(products.id, item.productId));
       }
 
@@ -445,7 +428,7 @@ export function setupRoutes(app: Express): void {
       const totalUsers = await db.select().from(users);
       
       // Calculate total revenue
-      const revenue = totalOrders.reduce((sum, order) => sum + parseFloat(order.total), 0);
+      const revenue = totalOrders.reduce((sum, order) => sum + Number(order.total), 0);
       
       res.json({
         totalProducts: totalProducts.length,

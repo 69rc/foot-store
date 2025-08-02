@@ -10,6 +10,8 @@ import Products from "@/pages/products";
 import Cart from "@/pages/cart";
 import Orders from "@/pages/orders";
 import Admin from "@/pages/admin";
+import SignUp from "@/pages/signup";
+import SignIn from "@/pages/signin";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -17,6 +19,11 @@ function Router() {
 
   return (
     <Switch>
+      {/* Authentication routes - always available */}
+      <Route path="/signup" component={SignUp} />
+      <Route path="/signin" component={SignIn} />
+      
+      {/* Protected routes */}
       {isLoading || !isAuthenticated ? (
         <Route path="/" component={Landing} />
       ) : (

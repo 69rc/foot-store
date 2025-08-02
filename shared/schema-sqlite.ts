@@ -26,11 +26,12 @@ export const sessions = sqliteTable(
 // User storage table
 export const users = sqliteTable("users", {
   id: text("id").primaryKey().notNull(),
-  email: text("email").unique(),
+  email: text("email").unique().notNull(),
+  password: text("password").notNull(),
   firstName: text("first_name"),
   lastName: text("last_name"),
   profileImageUrl: text("profile_image_url"),
-  role: text("role", { enum: ["customer", "admin"] }).default("customer"),
+  role: text("role", { enum: ["customer", "admin"] }).default("customer").notNull(),
   createdAt: integer("created_at", { mode: "timestamp" }).notNull().$defaultFn(() => new Date()),
   updatedAt: integer("updated_at", { mode: "timestamp" }).notNull().$defaultFn(() => new Date()),
 });
