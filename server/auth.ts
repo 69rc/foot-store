@@ -20,10 +20,10 @@ declare global {
       user?: {
         id: string;
         email: string;
-        firstName?: string;
-        lastName?: string;
+        firstName?: string | null;
+        lastName?: string | null;
         role: string;
-        profileImageUrl?: string;
+        profileImageUrl?: string | null;
         createdAt: Date;
         updatedAt: Date;
       };
@@ -192,7 +192,12 @@ export async function authMiddleware(req: Request, res: Response, next: NextFunc
 
     if (userResult.length > 0) {
       const { password: _, ...userWithoutPassword } = userResult[0];
-      req.user = userWithoutPassword;
+      req.user = {
+        ...userWithoutPassword,
+        firstName: userWithoutPassword.firstName || undefined,
+        lastName: userWithoutPassword.lastName || undefined,
+        profileImageUrl: userWithoutPassword.profileImageUrl || undefined
+      };
     }
 
     next();

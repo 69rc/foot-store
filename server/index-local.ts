@@ -7,7 +7,7 @@ import fs from 'fs';
 
 // Import local SQLite setup
 import { authMiddleware, setupAuthRoutes } from './auth.js';
-import { setupRoutes } from './routes-local.js';
+import { setupRoutes } from './routes-simple.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
