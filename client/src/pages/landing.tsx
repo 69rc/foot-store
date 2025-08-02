@@ -24,15 +24,15 @@ export default function Landing() {
               <Button
                 variant="ghost"
                 className="text-gray-600 hover:text-gray-900 hover:bg-gray-50/80 transition-all duration-200"
-                onClick={() => (window.location.href = "/?user=customer")}
+                onClick={() => (window.location.href = "/signin")}
               >
-                Browse as Customer
+                Sign In
               </Button>
               <Button
                 className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:from-indigo-700 hover:via-purple-700 hover:to-pink-700 text-white shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
-                onClick={() => (window.location.href = "/?user=admin")}
+                onClick={() => (window.location.href = "/signup")}
               >
-                Admin Panel
+                Sign Up
               </Button>
             </div>
           </div>
@@ -75,20 +75,20 @@ export default function Landing() {
               <Button
                 size="lg"
                 className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:from-indigo-700 hover:via-purple-700 hover:to-pink-700 text-white shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 text-lg px-8 py-6 rounded-xl"
-                onClick={() => (window.location.href = "/?user=customer")}
+                onClick={() => (window.location.href = "/signup")}
               >
                 <ShoppingBag className="w-6 h-6 mr-3" />
-                Start Shopping
+                Get Started
                 <ChevronRight className="w-5 h-5 ml-2" />
               </Button>
               <Button
                 size="lg"
                 variant="outline"
                 className="border-2 border-gray-300 hover:border-indigo-400 text-gray-700 hover:text-indigo-700 hover:bg-indigo-50/80 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 text-lg px-8 py-6 rounded-xl backdrop-blur-sm"
-                onClick={() => (window.location.href = "/?user=admin")}
+                onClick={() => (window.location.href = "/signin")}
               >
                 <Play className="w-6 h-6 mr-3" />
-                Admin Demo
+                Sign In
               </Button>
             </div>
 
@@ -200,15 +200,15 @@ export default function Landing() {
             <Button
               variant="outline"
               className="border-gray-600 text-gray-300 hover:bg-gray-800 hover:border-gray-500"
-              onClick={() => (window.location.href = "/?user=customer")}
+              onClick={() => (window.location.href = "/signin")}
             >
-              Explore Collection
+              Sign In
             </Button>
             <Button
               className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700"
-              onClick={() => (window.location.href = "/?user=admin")}
+              onClick={() => (window.location.href = "/signup")}
             >
-              Admin Access
+              Create Account
             </Button>
           </div>
         </div>
